@@ -34,6 +34,7 @@ clock = pygame.time.Clock()
 
 # simulation speed
 speed = 30
+speed_check = 0
 
 # font
 font_impact = pygame.font.SysFont('impact',30)
@@ -46,10 +47,12 @@ text_right_arrow = font_impact.render('>', True, white)
 text_left_arrow = font_impact.render('<', True, white)
 text_speed_value = font_impact_small.render(str(speed), True, white)
 text_next = font_impact.render('Next', True, white)
+text_stop = font_impact.render('Stop', True, white)
 
 
 # ---Running the game---
 run = True
+simulation = False
 while run:
     # mouse position
     pos = pygame.mouse.get_pos()
@@ -63,9 +66,14 @@ while run:
 
         # perform an action when the user clicks something
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            # start button
+            # start & stop buttons
             if 20 <= pos[0] <= 110 and 630 <= pos[1] <= 675:
-                print('Starting simulation')
+                if simulation == False:
+                    print('Starting simulation')
+                    simulation = True
+                else:
+                    print('Stopping simulation')
+                    simulation = False
             # speed down
             elif 130 <= pos[0] <= 150 and 635 <= pos[1] <= 670:
                 if speed > 1:
@@ -83,8 +91,23 @@ while run:
             elif 5 <= pos[0] <= 624 and 5 <= pos[1] <= 624:
                 col = pos[0] // (width + margin)
                 row = pos[1] // (height + margin)
-                grid[row][col] = 1
+                if grid[row][col] == 0:
+                    grid[row][col] = 1
+                else:
+                    grid[row][col] = 0
         
+    # start the simulation
+    if simulation == True:
+        if speed_check < speed:
+            speed_check = speed_check + 1
+        else:
+            for row in range(25):
+                for col in range(25):
+                    if grid[row][col] == 0:
+                        grid[row][col] = 1
+                    else:
+                        grid[row][col] = 0
+            speed_check = 0
 
     # draw the grid
     window.fill(dark_gray)
@@ -104,7 +127,10 @@ while run:
         pygame.draw.rect(window, light_gray, [20, 630, 90, 45])    
     else: 
         pygame.draw.rect(window, gray, [20, 630, 90, 45])
-    window.blit(text_start, (34, 633))
+    if simulation == False:
+        window.blit(text_start, (34, 633))
+    else:
+        window.blit(text_stop, (34, 633))
 
     # speed
     if 130 <= pos[0] <= 150 and 635 <= pos[1] <= 670:
