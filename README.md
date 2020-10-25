@@ -24,6 +24,32 @@ during each step:
 # What does this app do?
 
 This app will recreate Conway's 'Game of Life'. It is built entirely from scratch. This app
-utilizes a 25 by 25 grid. The user can select which cells are alive before starting the simulation.
+utilizes a 25 by 25 grid. The user can select which cells are alive before starting the simulation
+by clicking on the grid. There is also a random button that will assign each cell dead or alive
+values randomly. Once the user is pleased with their current arangment, they can begin the
+simulation by pressing 'Start' or they can manulaly move forward one generation by pressing 'Next'.
+Using the arrows next to the speed counter, the user can freely adjust the speed of the simulation
+from 1 to 60 ticks per second. The user can reset the board by using the 'Clear button'. This board
+does not wrap around to the other side. The edges of the grid are like walls, so there are no cells
+ outside of view.
+
 
 # How do I use the app?
+Run the GoL.py file to begin the application after installing the requirments.
+
+Click on the grid to toggle the state of each cell. White cells are dead and black cells are
+alive. You can't click on the grid while a simulation is running.
+
+Press 'Random' to randomly assign each cell a dead or alive state. This will reset the generation.
+
+Use 'Clear' to remove any live cells from the grid. This will reset the generation.
+
+Use 'Next' to move forward one generation.
+
+You can press the arrows on the speed slider to to adjust the speed of the simulation. The slowest is
+60 ticks per second and the fastest is 1 tick per second.
+
+Click 'Start' to begin the simulation. While the simulation is running, you can no longer click on the
+grid. The simulation will move forward one generation every 'speed' amount of ticks per second. The
+'Start' button will be replace by a 'Stop' button while the simulation is running. Pressing 'Stop' will
+freeze the simulation, allowing you to manipulate it once again.
